@@ -210,7 +210,8 @@ module ActionView
               options[:include_blank] ||= true unless options[:prompt]
             end
 
-            value = options[:selected] ? options[:selected] : value(object)
+            object_value = Rails::VERSION::MAJOR >= 5 && Rails::VERSION::MINOR >= 2 ? value : value(object)
+            value = options[:selected] ? options[:selected] : object_value
             priority_regions = options[:priority] || []
             opts = add_options(region_options_for_select(parent_region.subregions, value, 
                                                         :priority => priority_regions), 
